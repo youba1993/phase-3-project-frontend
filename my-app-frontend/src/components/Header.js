@@ -1,10 +1,18 @@
-import React from "react";
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 function Header() {
   return (
-    <header>
-      <h1>Donation's Portal</h1>
-    </header>
+    
+        <Navbar expand="lg" variant="light" bg="light">
+          <Container>
+            <Navbar.Brand >Donations Portal</Navbar.Brand>
+            <Breadcrumb.Item active>Connected</Breadcrumb.Item>
+          </Container>
+        </Navbar>
+      
+   
   );
 }
 

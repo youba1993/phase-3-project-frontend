@@ -8,8 +8,8 @@ function User() {
       fetch("http://localhost:9292/users/1")
           .then((r) => r.json())
           .then((users) => setUsers(users));
-  }, []);
-
+    }, []);
+    
     return (
         <div>
             <p> Welcome to your Donation Portal, </p>
