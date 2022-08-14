@@ -14,6 +14,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [donations, setDonations] = useState([]);
 
+        // get categories
   useEffect(() => {
     fetch("http://localhost:9292/categories")
       .then((r) => r.json())
@@ -24,6 +25,7 @@ function App() {
     return username
   }
 
+    // get donations 
   useEffect(() => {
     fetch("http://localhost:9292/donations")
       .then((r) => r.json())
@@ -35,19 +37,39 @@ function App() {
     setDonations(updatedDonations);
   }
 
+  function onUpdateDonation(updatedDonation){
+    const updatedDonations = donations.map((donation) => {
+      if (donation.id === updatedDonation.id) {
+        return updatedDonation;
+      } else {
+        return donation;
+      }});
+      setDonations(updatedDonations);
+  }
+
   return (
     <div className="App">
       <Header />
+
+          {/* fetch a user name */}
       <User userName={userName} />
 
+          {/* render categories from server data */}
       <Accordion defaultActiveKey="0">
-      {categories.map((categorie) =>
-        <Categorie key={categorie.id} categorie={categorie} />
-      )}
+        {categories.map((categorie) =>
+          <Categorie key={categorie.id} categorie={categorie} />
+        )}
       </Accordion>
-        <br></br>
-        <AddDonation categories={categories}/>
-        <br></br>
+
+          {/* form to submit a donation */}
+      <br></br>
+      <p>---------------------------------</p>
+      <h2>Take action</h2>
+      <AddDonation categories={categories} />
+      <p>---------------------------------</p>
+      <br></br>
+
+          {/* render donations in a table */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -59,7 +81,7 @@ function App() {
           </tr>
         </thead>
         {donations.map((donation) =>
-          <Donation key={donation.id} donation={donation} userName={userName} categories={categories} handleDeleteDonation={handleDeleteDonation}/>
+          <Donation key={donation.id} donation={donation} userName={userName} categories={categories} handleDeleteDonation={handleDeleteDonation} onUpdateDonation={onUpdateDonation} />
         )}
       </Table>
 
